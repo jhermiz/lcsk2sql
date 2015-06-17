@@ -204,6 +204,18 @@ var LCSKChat = function () {
             if (from == '') {
                 chatId = '';
                 requestChat = false;
+            }else {
+                //store the message in a database via ajax
+                $.ajax({
+                    type: "POST",
+                    url: '/Code/WebServices/Utilities.asmx/AddChatMessage',
+                    contentType: "application/json; charset=utf-8",
+                    data: '{"chatId":"' + chatId + '","from":"' + from + '","msg":"' + msg + '"}',
+                    dataType: "json",
+                    failure: function (response) {
+                        alert(response.d);
+                    }
+                });
             }
 
             $("#chat-box-msg").scrollTop($("#chat-box-msg")[0].scrollHeight);
